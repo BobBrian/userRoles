@@ -16,9 +16,11 @@ app.post("/data/register",async (req,res)=>{
 
     try {
         
-        const {name, email , password } = req.body;
-        const users = await pool.query("INSERT INTO datausers (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, password ]);
-        console.log(name, email, password)
+        // Make Sure the req bodies are the same wherever you are
+        const {user, email , password } = req.body;
+        // user is substituting for name.
+        const users = await pool.query("INSERT INTO datausers (name, email, password) VALUES ($1, $2, $3) RETURNING *", [user, email, password ]);
+        console.log(user, email, password)
         res.json(users.rows[0]);
         
     } catch (err) {
